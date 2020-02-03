@@ -1,4 +1,5 @@
 <?xml version="1.0"?>
+<!-- modiefied by mgangl: add python dependencies -->
 <?xml-model href="http://download.ros.org/schema/package_format2.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="2">
   <name>robot_state_publisher</name>
@@ -15,6 +16,7 @@
   <license>BSD</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
+  <buildtool_depend>ament_cmake_python</buildtool_depend>
 
   <build_depend>builtin_interfaces</build_depend>
   <build_depend>geometry_msgs</build_depend>
@@ -27,6 +29,7 @@
   <build_depend>tf2_ros</build_depend>
   <build_depend>urdf</build_depend>
   <build_depend>urdfdom_headers</build_depend>
+  <build_depend>rclpy</build_depend>
 
   <exec_depend>builtin_interfaces</exec_depend>
   <exec_depend>geometry_msgs</exec_depend>
@@ -39,6 +42,7 @@
   <exec_depend>tf2_ros</exec_depend>
   <exec_depend>urdf</exec_depend>
   <exec_depend>urdfdom_headers</exec_depend>
+  <exec_depend>rclpy</exec_depend>
 
   <test_depend>ament_cmake_gtest</test_depend>
   <test_depend>ament_lint_auto</test_depend>
@@ -49,4 +53,5 @@
   <export>
     <build_type>ament_cmake</build_type>
   </export>
+
 </package>

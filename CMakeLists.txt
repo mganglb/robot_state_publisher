@@ -23,6 +23,11 @@ find_package(tf2_ros REQUIRED)
 find_package(urdf REQUIRED)
 find_package(urdfdom_headers REQUIRED)
 
+# python
+ament_python_install_package(${PROJECT_NAME})
+find_package(ament_cmake_python REQUIRED)
+find_package(rclpy REQUIRED)
+
 include_directories(include)
 
 add_library(
@@ -60,36 +65,42 @@ install(DIRECTORY launch urdf
   DESTINATION share/${PROJECT_NAME}
 )
 
-if(BUILD_TESTING)
-  find_package(ament_lint_auto REQUIRED)
-  ament_lint_auto_find_test_dependencies()
+# python
+# python: no exectuable needed
+# install(PROGRAMS scripts/my_executable DESTINATION bin)
+ament_export_dependencies(ament_cmake_python)
+ament_export_dependencies(rclpy)
 
-  find_package(ament_cmake_gtest REQUIRED)
-  find_package(launch_testing_ament_cmake REQUIRED)
-  ament_find_gtest()
+# if(BUILD_TESTING)
+#   find_package(ament_lint_auto REQUIRED)
+#   ament_lint_auto_find_test_dependencies()
 
-  include_directories(${GTEST_INCLUDE_DIRS})
+#   find_package(ament_cmake_gtest REQUIRED)
+#   find_package(launch_testing_ament_cmake REQUIRED)
+#   ament_find_gtest()
 
-  add_executable(test_two_links_fixed_joint test/test_two_links_fixed_joint.cpp)
-  ament_target_dependencies(test_two_links_fixed_joint
-    rclcpp
-    sensor_msgs
-    tf2_ros
-  )
-  target_link_libraries(test_two_links_fixed_joint ${GTEST_LIBRARIES})
-  add_launch_test(test/two_links_fixed_joint-launch.py
-    ARGS "test_exe:=$<TARGET_FILE:test_two_links_fixed_joint>")
+#   include_directories(${GTEST_INCLUDE_DIRS})
 
-  add_executable(test_two_links_moving_joint test/test_two_links_moving_joint.cpp)
-  ament_target_dependencies(test_two_links_moving_joint
-    rclcpp
-    sensor_msgs
-    tf2_ros
-  )
-  target_link_libraries(test_two_links_moving_joint ${GTEST_LIBRARIES})
-  add_launch_test(test/two_links_moving_joint-launch.py
-    ARGS "test_exe:=$<TARGET_FILE:test_two_links_moving_joint>")
-endif()
+#   add_executable(test_two_links_fixed_joint test/test_two_links_fixed_joint.cpp)
+#   ament_target_dependencies(test_two_links_fixed_joint
+#     rclcpp
+#     sensor_msgs
+#     tf2_ros
+#   )
+#   target_link_libraries(test_two_links_fixed_joint ${GTEST_LIBRARIES})
+#   add_launch_test(test/two_links_fixed_joint-launch.py
+#     ARGS "test_exe:=$<TARGET_FILE:test_two_links_fixed_joint>")
+
+#   add_executable(test_two_links_moving_joint test/test_two_links_moving_joint.cpp)
+#   ament_target_dependencies(test_two_links_moving_joint
+#     rclcpp
+#     sensor_msgs
+#     tf2_ros
+#   )
+#   target_link_libraries(test_two_links_moving_joint ${GTEST_LIBRARIES})
+#   add_launch_test(test/two_links_moving_joint-launch.py
+#     ARGS "test_exe:=$<TARGET_FILE:test_two_links_moving_joint>")
+# endif()
 
 ament_export_dependencies(builtin_interfaces orocos_kdl rclcpp sensor_msgs std_msgs tf2_ros urdf)
 ament_export_include_directories(include)
